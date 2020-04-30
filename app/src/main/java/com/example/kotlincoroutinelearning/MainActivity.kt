@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime
@@ -32,27 +30,32 @@ class MainActivity : AppCompatActivity() {
         txtMsg=findViewById<TextView>(R.id.txtmsg) as TextView
 
 
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.IO) {
 
             currentDate = sdf.format(Date())
 
             Log.d("TAG","Before coroutind get delayed ${Thread.currentThread().name} ${currentDate}+ ")
             //To delay the execution of coroutine we can use the coroutine delay(millisecond)
             //function
-            delay(15000L)
+            delay(5000L)
 
             currentDate = sdf.format(Date())
             //Here we are printing the name of the thread in which it is executing
             Log.d("TAG","Hello From Coroutine ${Thread.currentThread().name} ${currentDate}+ ")
 
-            coroutine1()
-            coroutine2()
+            //video 3
+            //coroutine1()
+            //coroutine2()
+
+            //video 4
+            settingText()
 
         }
 
         Log.d("TAG","Hello From Main Thread App ${Thread.currentThread().name}")
     }
 
+    //Video 3 Suspend Function Example
     suspend fun coroutine1(){
         currentDate = sdf.format(Date())
 
@@ -77,5 +80,20 @@ class MainActivity : AppCompatActivity() {
 
         //Here we are printing the name of the thread in which it is executing
         Log.d("TAG","Hello From Coroutine 2 ${Thread.currentThread().name} ${currentDate}+ ")
+    }
+
+    //Video 4 Coroutine Context
+
+    suspend fun callAPI():String{
+        delay(3000L)
+        return "This is the API call"
+    }
+
+    suspend fun settingText(){
+     val value=callAPI()
+
+        withContext(Dispatchers.Main){
+            txtMsg!!.text="I'm from coroutine"
+        }
     }
 }
