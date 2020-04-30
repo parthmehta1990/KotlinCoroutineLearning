@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                  currentDate = sdf.format(Date())
                  Log.d("TAG","Launcher 1 $currentDate")
              }
-
+ 
              launch(Dispatchers.IO) {
                  currentDate = sdf.format(Date())
                  Log.d("TAG","Before Launcher 2 $currentDate")
@@ -88,12 +88,12 @@ class MainActivity : AppCompatActivity() {
                  currentDate = sdf.format(Date())
                  Log.d("TAG","Luncher 3 $currentDate")
              }
-
+ 
              currentDate = sdf.format(Date())
              Log.d("TAG","Starting Run blocking $currentDate")
-
+ 
              delay(6000L)
-
+ 
              currentDate = sdf.format(Date())
              Log.d("TAG","End Run blocking $currentDate")
          }
@@ -155,7 +155,5 @@ class MainActivity : AppCompatActivity() {
     //video 5 runblocking()
     //It will block the main thread if we call the delay in it
     // Checck the onCreate() commented block
-
-    
 
 }
