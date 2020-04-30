@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         txtMsg = findViewById<TextView>(R.id.txtmsg) as TextView
 
 
-        GlobalScope.launch(Dispatchers.IO) {
+        val job=GlobalScope.launch(Dispatchers.Default) {
 
             currentDate = sdf.format(Date())
 
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             )
             //To delay the execution of coroutine we can use the coroutine delay(millisecond)
             //function
-            delay(5000L)
+            //delay(5000L)
 
             currentDate = sdf.format(Date())
             //Here we are printing the name of the thread in which it is executing
@@ -51,8 +51,25 @@ class MainActivity : AppCompatActivity() {
             //coroutine2()
 
             //video 4
-            settingText()
+            //settingText()
 
+            //video 6
+            Log.d("TAG","In Video 6 Before function")
+            repeat(5){
+                delay(1500)
+                Log.d("TAG","In Video 6 join function")
+            }
+            Log.d("TAG","In Video 6 After function")
+        }
+        //video 6
+        runBlocking {
+
+            //To wait till the job coroutine complete its execution
+            job.join()
+
+            //Cancellation
+            //delay(2000L)
+            //job.cancel()
         }
 
         //Log.d("TAG","Hello From Main Thread App ${Thread.currentThread().name}")
@@ -155,5 +172,8 @@ class MainActivity : AppCompatActivity() {
     //video 5 runblocking()
     //It will block the main thread if we call the delay in it
     // Checck the onCreate() commented block
+
+    //Video 6
+    //Jobs waiting and cancelling
 
 }
